@@ -5,9 +5,22 @@
     <title></title>
 </head>
 <body>
+    <div id="eredmeny"></div>
+
     <script>
+        fetch("/questions/all")
+            .then(response => response.json())
+            .then(data => console.log(data));
 
+        function kiiratas(lista) {
+            console.log(lista)
 
+            for (var i = 0; i < lista.length; i++) {
+                var newQuestion = document.createElement("div");
+                newQuestion.innerText = lista[i];
+                document.getElementById("eredmeny").appendChild(newQuestion);
+            }
+        }
     </script>
 </body>
 </html>
