@@ -3,23 +3,53 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
+    <link href="kerdesek.css" rel="stylesheet" />
 </head>
 <body>
     <div id="eredmeny"></div>
 
+    <div id="külső">
+        <div id="kérdés_szöveg">
+            Kérdés szövege
+        </div>
+
+        <div id="középső">
+            <div id="válaszok">
+                <div id="válasz1" class="kerdes">Válasz 1</div>
+                <div id="válasz2" class="kerdes">Válasz 2</div>
+                <div id="válasz3" class="kerdes">Válasz 3</div>
+            </div>
+            <div id="kép">
+                <img id="kép1" src="https://kzgzdiag426.blob.core.windows.net/netcore/teszt-0050.jpg" />
+            </div>
+        </div>
+        <div id="vezérlő">
+            <div class="gomb kattintható">Vissza</div>
+            <div class="gomb kattintható">Előre</div>
+        </div>
+    </div>
+
     <script>
-        fetch("/questions/all")
-            .then(response => response.json())
-            .then(data => console.log(data));
+        function kerdesBetoltes(id) {
+            fetch(`/questions/${id}`)
+                .then(response => {
+                    if (!response.ok) {
+                        console.error(`Hibás válasz: ${response.status}`)
+                    }
+                    else {
+                        return response.json()
+                    }
+                })
+                .then(data => kiiratas(data));
+        }
 
-        function kiiratas(lista) {
-            console.log(lista)
-
-            for (var i = 0; i < lista.length; i++) {
-                var newQuestion = document.createElement("div");
-                newQuestion.innerText = lista[i];
-                document.getElementById("eredmeny").appendChild(newQuestion);
-            }
+        function kiiratas(kérdés) {
+            console.log(kérdés);
+            document.getElementById("kérdés_szöveg").innerText = kérdés.questionText
+            document.getElementById("válasz1").innerText = kérdés.answer1
+            document.getElementById("válasz2").innerText = kérdés.answer2
+            document.getElementById("válasz3").innerText = kérdés.answer3
+            document.getElementById("kép").src = "https://szoft1.comeback.hu/hajo/" + kérdés.image;
         }
     </script>
 </body>

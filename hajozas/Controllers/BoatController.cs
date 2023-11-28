@@ -14,5 +14,19 @@ namespace hajozas.Controllers
 
             return Ok(kerdesek);
         }
+
+        [HttpGet]
+        [Route("questions/{id}")]
+        public IActionResult Question(int id)
+        {
+            HajosContext context = new();
+            var kerdes = (from x in context.Questions
+                         where x.QuestionId == id
+                         select x).FirstOrDefault();
+            
+            if (kerdes == null) return BadRequest("Nincs ilyen sorszámú kérdés!");
+            
+            return new JsonResult(kerdes);
+        }
     }
 }
