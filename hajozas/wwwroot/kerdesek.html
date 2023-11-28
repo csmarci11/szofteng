@@ -15,42 +15,20 @@
 
         <div id="középső">
             <div id="válaszok">
-                <div id="válasz1" class="kerdes">Válasz 1</div>
-                <div id="válasz2" class="kerdes">Válasz 2</div>
-                <div id="válasz3" class="kerdes">Válasz 3</div>
+                <div id="válasz1" class="kerdes" onclick="választás(1)">Válasz 1</div>
+                <div id="válasz2" class="kerdes" onclick="választás(2)">Válasz 2</div>
+                <div id="válasz3" class="kerdes" onclick="választás(3)">Válasz 3</div>
             </div>
-            <div id="kép">
-                <img id="kép1" src="https://kzgzdiag426.blob.core.windows.net/netcore/teszt-0050.jpg" />
+            <div id="kép_div">
+                <img id="kép" src="https://kzgzdiag426.blob.core.windows.net/netcore/teszt-0050.jpg" />
             </div>
         </div>
         <div id="vezérlő">
-            <div class="gomb kattintható">Vissza</div>
-            <div class="gomb kattintható">Előre</div>
+            <div class="gomb kattintható" id="prev">Vissza</div>
+            <div class="gomb kattintható" id="next">Előre</div>
         </div>
     </div>
 
-    <script>
-        function kerdesBetoltes(id) {
-            fetch(`/questions/${id}`)
-                .then(response => {
-                    if (!response.ok) {
-                        console.error(`Hibás válasz: ${response.status}`)
-                    }
-                    else {
-                        return response.json()
-                    }
-                })
-                .then(data => kiiratas(data));
-        }
-
-        function kiiratas(kérdés) {
-            console.log(kérdés);
-            document.getElementById("kérdés_szöveg").innerText = kérdés.questionText
-            document.getElementById("válasz1").innerText = kérdés.answer1
-            document.getElementById("válasz2").innerText = kérdés.answer2
-            document.getElementById("válasz3").innerText = kérdés.answer3
-            document.getElementById("kép").src = "https://szoft1.comeback.hu/hajo/" + kérdés.image;
-        }
-    </script>
+    <script src="kerdesek.js"></script>
 </body>
 </html>

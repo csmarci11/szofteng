@@ -46,3 +46,11 @@ html, body {
     background-color: blue;
     color: white;
 }
+
+.rossz{
+    background-color: red;
+}
+
+.jó{
+    background-color: green;
+}
